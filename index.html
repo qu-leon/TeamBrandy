@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
+<html lang ="en">
+<head>
 
     <!-- Plotly.js -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -16,7 +15,7 @@
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  </head>
+</head>
 
   <body>
 
@@ -61,7 +60,48 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    
+      Plotly.d3.csv("https://raw.githubusercontent.com/ungarz/TeamBrandyData/master/data%20files/Ability_To_Speak_English_By_Total_Income.csv", 
+    function(err, rows){
+      function unpack(rows, key) {
+    return rows.map(function(row) { return row[key]; });
+    }
+
+    var headerNames = Plotly.d3.keys(rows[0]);
+
+    var headerValues = [];
+    var cellValues = [];
+      for (i = 0; i < headerNames.length; i++) {
+      headerValue = [headerNames[i]];
+      headerValues[i] = headerValue;
+      cellValue = unpack(rows, headerNames[i]);
+      cellValues[i] = cellValue;
+    };
+
+    var data = [{
+      type: 'table',
+      columnwidth: [500,500,500,500],
+      columnorder: [0,1,2,3],
+    header: {
+      values: headerValues,
+      align: "center",
+      line: {width: 1, color: 'rgb(50, 50, 50)'},
+      fill: {color: ['rgb(235, 100, 230)']},
+      font: {family: "Arial", size: 11, color: "white"}
+    },
+    cells: {
+      values: cellValues,
+      align: ["left","right", "right", "right"],
+      line: {color: "black", width: 1},
+      fill: {color: ['rgba(228, 222, 249, 0.65)','rgb(235, 193, 238)', 'rgba(228, 222, 249, 0.65)']},
+      font: {family: "Arial", size: 11, color: ["black"]}
+    }
+    }];
+
+    var layout = {
+    title: "Total Income with level of Fluency"
+    };
+
+    Plotly.plot('chart3', data, layout);
   </script>
   </body>
 
