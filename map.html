@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hawaii's English Fluency Population</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+        <div class="container">
+          <a class="navbar-brand" href="#">Hawaii's English Fluency vs Income</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"Income Map>
+                    <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+     <!-- Page Content -->
+     <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h1 class="mt-5">Fluency in English Correlated with Total Income</h1>
+            <p class="lead">Visualizing the relationship of fluency in English with income in Hawaii's population.</p>
+            <div style="width:100%; height:450px; float:center">
+              <div id="hawaii_income_map" style="width:100%;height:450px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    Plotly.d3.csv("https://raw.githubusercontent.com/ungarz/TeamBrandyData/master/data%20files/Income_Per_Area.csv", 
+      function(err, rows){
+        function unpack(rows, key) {
+      return rows.map(function(row) { return row[key]; });
+      }
+
+    var mapdata = [{
+      type:'scattermapbox',
+      lat:['45.5017'],
+      lon:['-73.5673'],
+      mode:'markers',
+      marker: {
+        size:14
+      },
+      text:['Montreal']
+    }]
+
+    var maplayout = {
+      autosize: true,
+      hovermode:'closest',
+      mapbox: {
+        bearing:0,
+        center: {
+         lat:45,
+         lon:-73
+        },
+        pitch:0,
+        zoom:5
+     },
+    }
+
+    Plotly.setPlotConfig({
+     mapboxAccessToken: 'pk.eyJ1IjoiZXRwaW5hcmQiLCJhIjoiY2luMHIzdHE0MGFxNXVubTRxczZ2YmUxaCJ9.hwWZful0U2CQxit4ItNsiQ'
+    })
+
+    Plotly.plot('hawaii_income_map', mapdata, maplayout);
+  });
+  </script>
+  </body>
+
+</html>

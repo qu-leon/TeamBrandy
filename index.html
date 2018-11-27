@@ -33,6 +33,9 @@
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="map.html"Income Map></a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="about.html">About</a>
             </li>
           </ul>
@@ -128,13 +131,7 @@
     var layout = {barmode: 'group'};
     Plotly.newPlot('barchart', cdata, layout);
   });
-  
-    Plotly.d3.csv("https://raw.githubusercontent.com/ungarz/TeamBrandyData/master/data%20files/Income_Per_Area.csv", 
-      function(err, rows){
-        function unpack(rows, key) {
-      return rows.map(function(row) { return row[key]; });
-      }
-  });
+
   </script>
   </body>
 
