@@ -49,8 +49,8 @@
           <div class="col-md-12 text-center">
             <h1 class="mt-5">Fluency in English Correlated with Total Income</h1>
             <p class="lead">Mapping Income in Hawaii's town communities.</p>
-            <div style="width:100%; height:500px; float:center">
-              <div id="hawaii_income_map" style="width:100%;height:550px;"></div>
+            <div style="width:100%; height:600px; float:center">
+              <div id="hawaii_income_map" style="width:100%;height:590px;"></div>
             </div>
           </div>
         </div>
@@ -62,41 +62,69 @@
 
   <script>
     Plotly.d3.csv("https://raw.githubusercontent.com/ungarz/TeamBrandyData/master/data%20files/Income_Per_Area.csv", 
-      function(err, rows){
-        function unpack(rows, key) {
+    function(err, rows){
+        
+      var classArray = unpack(rows, 'County');
+      var classes = [...new Set(classArray)];
+
+    function unpack(rows, key) {
       return rows.map(function(row) { return row[key]; });
-      }
-
-    var mapdata = [{
-      type:'scattermapbox',
-      lat:['45.5017'],
-      lon:['-73.5673'],
-      mode:'markers',
-      marker: {
-        size:14
-      },
-      text:['Montreal']
-    }]
-
-    var maplayout = {
-      autosize: true,
-      hovermode:'closest',
-      mapbox: {
-        bearing:0,
-        center: {
-         lat:45,
-         lon:-73
-        },
-        pitch:0,
-        zoom:5
-     },
     }
 
-    Plotly.setPlotConfig({
-     mapboxAccessToken: 'pk.eyJ1IjoiZXRwaW5hcmQiLCJhIjoiY2luMHIzdHE0MGFxNXVubTRxczZ2YmUxaCJ9.hwWZful0U2CQxit4ItNsiQ'
-    })
+    var mapdata = classes.map(function(classes) {
+      var rowsFiltered = rows.filter(function(row) {
+        return (row.class === classes);
+      });
+      return {
+       type: 'scattermapbox',
+       name: classes,
+       lat: unpack(rowsFiltered, 'Lat'),
+       lon: unpack(rowsFiltered, 'Long')
+    };
+  });
 
-    Plotly.plot('hawaii_income_map', mapdata, maplayout);
+  var maplayout = {
+	 font: {
+		 color: 'white'
+	 },
+   dragmode: 'zoom',
+    mapbox: {
+      center: {
+        lat: 20.8389,
+        lon: -157.2
+      },
+      domain: {
+        x: [0, 1],
+        y: [0, 1]
+      },
+      style: 'dark',
+      zoom: 6.5
+    },
+    margin: {
+      r: 20,
+      t: 40,
+      b: 20,
+      l: 20,
+      pad: 0
+    },
+    paper_bgcolor: '#191A1A',
+    plot_bgcolor: '#191A1A',
+    showlegend: true,
+	 annotations: [{
+		 x: 0,
+       y: 0,
+       xref: 'paper',
+       yref: 'paper',
+		 text: 'Source: <a href="https://en.wikipedia.org/wiki/List_of_Hawaii_locations_by_per_capita_income?fbclid=IwAR3mjJ8brD4Bi2nd3r2Hl04el9Qh3h0gKYerT7slg2HX7Kv7UkxcgcjsM8I" style="color: rgb(255,255,255)">U.S. Census Bureau</a>',
+		 showarrow: false
+	 }]
+  };
+
+  Plotly.setPlotConfig({
+    mapboxAccessToken: 'pk.eyJ1IjoiZXRwaW5hcmQiLCJhIjoiY2luMHIzdHE0MGFxNXVubTRxczZ2YmUxaCJ9.hwWZful0U2CQxit4ItNsiQ'
+  })
+
+  Plotly.plot('hawaii_income_map', mapdata, maplayout);
   });
   </script>
   </body>
