@@ -64,7 +64,7 @@
     Plotly.d3.csv("https://raw.githubusercontent.com/ungarz/TeamBrandyData/master/data%20files/Income_Per_Area.csv", 
     function(err, rows){
         
-      var classArray = unpack(rows, 'County');
+      var classArray = unpack(rows, 'class');
       var classes = [...new Set(classArray)];
 
     function unpack(rows, key) {
@@ -78,8 +78,8 @@
       return {
        type: 'scattermapbox',
        name: classes,
-       lat: unpack(rowsFiltered, 'Lat'),
-       lon: unpack(rowsFiltered, 'Long')
+       lat: unpack(rowsFiltered, 'reclat'),
+       lon: unpack(rowsFiltered, 'reclong')
     };
   });
 
