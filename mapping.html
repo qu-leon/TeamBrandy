@@ -90,15 +90,15 @@
    dragmode: 'zoom',
     mapbox: {
       center: {
-        lat: 20.8389,
-        lon: -157.2
+        lat: 20.589,
+        lon: -157.25
       },
       domain: {
         x: [0, 1],
         y: [0, 1]
       },
       style: 'dark',
-      zoom: 6.5
+      zoom: 6.7
     },
     margin: {
       r: 20,
@@ -110,8 +110,8 @@
     paper_bgcolor: '#191A1A',
     plot_bgcolor: '#191A1A',
     showlegend: true,
-	 annotations: [{
-		 x: 0,
+	  annotations: [{
+		   x: 0,
        y: 0,
        xref: 'paper',
        yref: 'paper',
@@ -121,7 +121,8 @@
   };
 
   Plotly.setPlotConfig({
-    mapboxAccessToken: 'pk.eyJ1IjoiZXRwaW5hcmQiLCJhIjoiY2luMHIzdHE0MGFxNXVubTRxczZ2YmUxaCJ9.hwWZful0U2CQxit4ItNsiQ'
+    mapboxAccessToken: 
+    'pk.eyJ1IjoiZXRwaW5hcmQiLCJhIjoiY2luMHIzdHE0MGFxNXVubTRxczZ2YmUxaCJ9.hwWZful0U2CQxit4ItNsiQ'
   })
 
   Plotly.plot('hawaii_income_map', mapdata, maplayout);
