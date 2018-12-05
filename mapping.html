@@ -64,7 +64,7 @@
     Plotly.d3.csv("https://raw.githubusercontent.com/ungarz/TeamBrandyData/master/data%20files/Income_Per_Area.csv", 
     function(err, rows){
         
-      var classArray = unpack(rows, 'class');
+      var classArray = unpack(rows, 'county');
       var classes = [...new Set(classArray)];
 
     function unpack(rows, key) {
