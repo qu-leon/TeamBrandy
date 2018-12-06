@@ -64,7 +64,7 @@
     Plotly.d3.csv("https://raw.githubusercontent.com/ungarz/TeamBrandyData/master/data%20files/Income_Per_Area.csv", 
     function(err, rows){
         
-      var countyArray = unpack(rows, 'county');
+      var countyArray = unpack(rows, 'place');
       var counties = [...new Set(countyArray)];
 
     function unpack(rows, key) {
@@ -73,14 +73,14 @@
 
     var mapdata = counties.map(function(counties) {
       var rowsFiltered = rows.filter(function(row) {
-        return (row.county === counties);
+        return (row.place === counties);
       });
       return {
        type: 'scattermapbox',
        name: counties,
        lat: unpack(rowsFiltered, 'reclat'),
        lon: unpack(rowsFiltered, 'reclong'),
-       text: unpack(rowsFiltered, 'place')
+       text: unpack(rowsFiltered, 'Per capita income'),
     };
   });
 
